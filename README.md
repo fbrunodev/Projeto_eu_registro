@@ -53,4 +53,4 @@ Desenvolver um modelo de classificação capaz de prever se uma marca será conc
 - Substituição de **TF-IDF** por **Word2Vec** para melhor representação semântica dos textos.
 
 ## Resultado Final
-O
+O modelo Random Forest com embeddings Word2Vec obteve os melhores resultados, entregando uma boa performance na classificação de marcas. O projeto foi finalizado e entregue com sucesso.
