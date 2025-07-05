@@ -1,12 +1,56 @@
-# Projeto_eu_registro
+# Projeto: eu_registro
 
-Projeto relacionado a registro de marcas do INPI, foi feito um pipeline de análise de dados de 3 arquivos csv, dum_processos.csv, dump_processos_despacho.csv, conclusoes_parecer.csv. O objetivo do projeto era desenvolver um modelo de classificação que pudesse realizar a predição de uma marca, ou seja, o modelo iria prever se uma marca seria concedida ou não através dos dados que nos foram fornecido. Realizamos a análise inicial, identificamos que o documento continha muita quebra de linha então foi necessário reescrevê-lo em outro documento pois a ferramenta colab não era capaz de lêr tal documento já que devido as quebras de linhas que foram feitas, deixaram ausência de aspas. Logo após a resolução do problema de leitura do documento, iniciamos o processo de análise dos dados, o dataset continha 18 colunas no total e cerca de 5 milhões de linhas. Dentre essas colunas já nos foi fornecido pela empresa nossa variàvel-alvo(target) "marca_add" facilitando o desenvolvimento do projeto. 
+Projeto de classificação de marcas do INPI com foco em ciência de dados e machine learning.
 
-Dando continuidade na análise do dataset ao verificar a presença de dados nulos nas features, oito colunas do dataset apresentaram cerca de 80% de dados nulos armazenados. Partindo desse ponto, se alguma dessas features fossem de fato relevantes para o modelo que iríamos escolher conseguir realizar a predição de uma marca ser aprovada ou não, tínhamos um problema em nossas mãos, pois sem dados suficientes seria quase que impossível construir um pipeline que pudesse resolver o problema, já que os valores faltantes era exorbitantes. Tratamos as features com presença de dados nulos, algumas foram removidas, também removemos aquelas que julgamos ser irrelevantes para o processo de aprendizagem do modelo a ser treinado. Seguimos então para o tratamento de valores numéricos, no caso datas mal formatadas que foram tratadas e organizadas em ano, mês e dia para posteriormente serem utilizadas em um dashboard e assim iria ser possível visualizar as demandas de processos durante cada período de tempo. Realizamos um pré-processamento de texto básico, pois as features textuais continham textos curtos então foi removido somente a acentuação, pontuação e espaços extras.
+## Objetivo
+Desenvolver um modelo de classificação capaz de prever se uma marca será concedida ou não com base em dados históricos disponibilizados.
 
-O próximo passo era tranformar esses dados textuais em NLP(Natural language Processing) uma área da inteligência artificial que estuda como fazer os computadores entenderem, interpretarem e gerarem a linguagem humana. Utilizamos TF-IDF para vetorizar as palavras e assim o nosso modelo poderia entender as features textuais, combinamos com a remoção de stopwords que são palavras comuns e repetitivas que não iriam agregar em nada na compreensão do texto. Foi implementado também o tratamento para colunas categóricas utilizando One-hot-Encoding e também a normalização de dados numéricos com StandardScale.
-Devido a quantidade maciva de dados, o google colab não suportava percorrer cada linha do dataset ao realizar-mos o fit para o trainamento do modelo, então fizemos um sample com 100 mil linhas mantendo o os valores da feature target do dataset original. O primeiro modelo a ser testado para a resolução do problema foi o Naive Bayes, que apresentou métricas ruins devido a um problema que deixamos passar despercebido, a variável-alvo "marca_add" estava com um desbalanceamento de classe muito grande e o modelo estava lidando com muito falsos positivos e assim sendo incapaz de identificar com precisão processos da classe 1 pois a mesma era menor em relação à classe 0. Era necessário aplicar técnicas de oversampling ou undersampling, optamos por um oversampling utilizando o RandomUnderSampling da biblioteca imblearn e assim balancear a classe 1 para que ela obtivesse a mesma quantidade ou uma quantidade aproximada da classe 0. Realizamos o treino do modelo novamente porém o Naive Bayes ainda não conseguia ter uma perfomance muito boa, então realizamos testes com outros modelos como: Logistic Regression, XGBoost, e RandomForest e comparamos os resultados de cada um e escolhemos aquele que apresenta-se as melhores métricas. Dentre eles o RandomForest teve um destaque maior em sua performance com ótimas métricas, e com o modelo ideal para nosso projeto de classificação de marcas, só era necessário agora otimizar o código e talvez ter um upgrade de desempenho. Após análises e testes o TF-IDF não capturava totalmente o que cada palavra do texto signficava, então aplicamos técnincas de embedding com o Word2vec e assim obtivemos um resultado melhor e conseguimos entregar o projeto no prazo e funcionando corretamente.
+## 📚 Tecnologias Utilizadas
+- Python
+- Pandas, Numpy
+- Scikit-learn
+- imblearn
+- Gensim (Word2Vec)
+- Matplotlib, Seaborn
+- Google Colab
 
+## Dados Utilizados
+- `dum_processos.csv`
+- `dump_processos_despacho.csv`
+- `conclusoes_parecer.csv`
 
+## Etapas do Projeto
 
+### 1. Análise Inicial
+- Identificação de quebras de linha e problemas de leitura nos CSVs.
+- Reescrita dos arquivos para possibilitar leitura no Google Colab.
 
+### 2. Limpeza e Pré-processamento
+- Dataset com 18 colunas e cerca de 5 milhões de linhas.
+- Presença de dados nulos em até 80% de algumas colunas.
+- Remoção de colunas irrelevantes e com dados faltantes.
+- Tratamento de datas e separação em `ano`, `mês`, `dia`.
+- Limpeza básica de texto (remoção de acentos, pontuação, espaços extras).
+
+### 3. Transformação dos Dados
+- Vetorização de texto com **TF-IDF** e remoção de *stopwords*.
+- Tratamento de colunas categóricas com **One-hot encoding**.
+- Normalização de dados numéricos com **StandardScaler**.
+
+### 4. Treinamento de Modelos
+- Redução do dataset para 100 mil amostras devido a limitações do Google Colab.
+- Testes com os seguintes modelos:
+  - **Naive Bayes** (baixo desempenho)
+  - **Logistic Regression**
+  - **XGBoost**
+  - **RandomForest** (melhor desempenho)
+
+### 5. Balanceamento de Classes
+- Variável-alvo `marca_add` desbalanceada.
+- Aplicação de **RandomUnderSampler** (imblearn) para equilibrar as classes.
+
+### 6. Otimizações
+- Substituição de **TF-IDF** por **Word2Vec** para melhor representação semântica dos textos.
+
+## Resultado Final
+O
